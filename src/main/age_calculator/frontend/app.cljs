@@ -12,9 +12,17 @@
            :value       @age
            :on-change #(reset! age (-> % .-target .-value))}])
 
+(defn handle-click []
+  (let [input-age (js/parseInt @age)]
+    (if (= @age "Даша")
+      (js/alert "Привет, Даша, твой возраст: 23")
+      (if (js/isNaN input-age)
+        (js/alert "Error input")
+        (js/alert (str "Your age is: " @age))))))
+
 (defn calc-button []
   [:button
-   {:on-click #(js/alert (str "Your age is: " (js/parseInt @age)))}
+   {:on-click handle-click}
    "Calculate"])
 
 (defn home-page []
